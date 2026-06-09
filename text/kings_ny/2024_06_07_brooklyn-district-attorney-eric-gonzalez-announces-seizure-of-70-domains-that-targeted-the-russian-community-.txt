@@ -1,0 +1,43 @@
+Brooklyn District Attorney Eric Gonzalez Announces Seizure of 70 Domains That Targeted the Russian Community in Cryptocurrency Scams - The Brooklyn District Attorney's Office
+HOME
+GET HELP
+REPORT A CRIME
+CONTACT US
+SEAL YOUR CONVICTION
+Skip to content
+FOR IMMEDIATE RELEASE
+Thursday, June 6, 2024
+Brooklyn District Attorney Eric Gonzalez Announces Seizure of 70 Domains
+That Targeted the Russian Community in Cryptocurrency Scams
+Victims Targeted Through Facebook Ads, Including One Promising Investment
+Advice from Elon Musk; More Than 20 Brooklyn Residents Lost Over $1 Million
+Brooklyn District Attorney Eric Gonzalez today announced that his Virtual Currency Unit successfully disrupted a cryptocurrency scam operation that targeted members of the Russian community. The victims were lured into making what turned out to be bogus investments by responding to Facebook ads about investment opportunities then getting a call from a purported investment advisor, who spoke in Russian and guided them into making cryptocurrency transactions on what were actually bogus websites. The investigation identified over 20 Brooklyn investors who lost over $1 million and additional victims from across the United States who lost an additional $4 million combined. The cluster of 70 linked domains have now been taken offline.
+District Attorney Gonzalez said, “My office continues to respond to complaints from Brooklyn residents who fall victim to the growing problem of cryptocurrency scams. This particular operation targeted members of the Russian community through Facebook advertising, by speaking their language, gaining their trust, and convincing them into making investments that were ultimately stolen. We have now severely disrupted this long running scam and will continue this work on taking fake investment websites offline to protect the public while raising awareness, so our neighbors can protect themselves.”
+The District Attorney said that starting in October 2023, his Virtual Currency Unit started to regularly receive complaints about thousands of dollars in losses from residents of Russian speaking communities who were convinced into investing in what they believed to be legitimate cryptocurrency investment platforms.
+The investigation identified a shared narrative under which victims were lured into the scam by clicking on a Facebook advertisement promising impressive returns. Many of the ads they described featured a “deepfake” video of Elon Musk, encouraging people to invest in cryptocurrency (see attached image). Victims then received a follow up call from an “investment advisor” who spoke to them in Russian and coached them into creating an account on an investment website. With the help of the “advisor,” victims purchased cryptocurrency and transferred it to addresses linked websites. After “investing” for several weeks or months, the victims attempted to make a withdrawal but were locked out of their account or told they had to pay additional fees and taxes. This type of scam is commonly known as “Pig Butchering.”
+An analysis of the websites reported by this cluster of victims revealed similarities in their appearance, HTML structure, IP addresses, hosting provider, and domain registrar. Most obvious of the similarities was an identical looking login page that served as a portal for the victims to create an account and begin their “investments” (see attached image). It is believed that the sites originated from Russia and the scammers were speaking in Russian as a way to ingratiate themselves to the victims and build trust. Because Russia is outside U.S. jurisdiction, recovering any stolen funds is extremely difficult and therefore, the DA’s Office strategy has been to disrupt the scam by taking control of the fake websites.
+This week, the Virtual Currency Unit, pursuant to a court order, seized a network of 70 linked scam domains, all associated with the investment scam targeting Russian victims in Brooklyn and elsewhere. It identified over 20 Brooklyn victims from Brighton Beach, Borough Park, Midwood, Sheepshead Bay, Ocean Parkway, Manhattan Beach, Kensington, and other neighborhoods. There were three additional victims from Manhattan. The victims ranged in age from 35 to 75 with the majority older than 50. They reported individual loss amounts ranging from $18,000 to over $117,000. In total, the New York victims lost over $1 million.
+In addition, the investigation found other Russian speaking victims from across the country (California, Maryland, Washington, Nebraska, Florida, Illinois, South Carolina and Pennsylvania). The combined victims across the country reported a total of $4 million in losses, believed to be just a fraction of the total financial damage caused in this scam.
+Since seizing the domains, which now redirect to a warning message from law enforcement, the DA’s Office received multiple calls from victims who had been in the midst of sending more money to the fake investment companies but were alerted to the scam by the DA’s seizure notice.
+The District Attorney shared the following warning signs of someone trying to lure a victim into a cryptocurrency scam:
+You get a “wrong message” text from a stranger who attempts to start a friendship and talks about how much money they’ve made by investing in cryptocurrency.
+You are added to a group chat on WhatsApp or Telegram that offers advice on how to invest in cryptocurrency with promises of getting rich quickly.
+Someone on Facebook brags about how much money they have made in cryptocurrency and tells you they can help you get rich.
+Someone you’ve never met in-person starts giving you cryptocurrency investment advice and promises returns on investments that seem too good to be true.
+You are directed to download an app to track your investments from a cryptocurrency website for a company you’ve never heard of before, not from an official mobile app store.
+The financial advisor or customer support for a cryptocurrency website communicates with you through Telegram or WhatsApp.
+You are asked to make cryptocurrency investments by giving large amounts of cash to couriers and company representatives in-person.
+You can make small withdrawals at the start but can’t withdraw any large amounts without having to pay a tax or additional fee.
+The District Attorney also shared the following tips on how to protect people from these cryptocurrency scams:
+Don’t trust cryptocurrency investment opportunities that seem too good to be true.
+Do not make cryptocurrency investments based on the advice of someone you’ve never met in person.
+Don’t download investment apps from unverified cryptocurrency investment websites.
+Don’t install apps that force you to override your phone’s security features.
+Verify the legitimacy of a company. Ask a friend, family member, or contact the KCDA Command center if you are unsure if something is legitimate.
+Never allow download programs such as AnyDesk that allows remote access to your computer.
+Do not pay more money in order to try and recover your investment from a cryptocurrency website.
+Check whether a cryptocurrency exchange is licensed to operate in New York State by going to
+https://www.dfs.ny.gov/who_we_supervise
+or calling the New York State Department of Financial Services hotline at 800-342-3736.
+The investigation into this case was handled by Assistant District Attorney Alona Katz, Chief of the Virtual Currency Unit with assistance from Senior Digital Forensic Analyst Mauricio Suarez-Marquez, under the supervision of Chief of the Digital Evidence Lab Unit Jingu Chong. Virtual Currency Analysts Sam Weaver and Lindiwe Mangondo, Assistant District Attorney Brian Umana of the Virtual Currency Unit, and Senior Detective Investigator Gerard Caffrey of the KCDA Detective Bureau also assisted in the investigation.
+#

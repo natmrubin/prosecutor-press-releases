@@ -1,0 +1,45 @@
+Brooklyn District Attorney Eric Gonzalez Announces Disruption of “Pig Butchering” Operation, Shares Tips on Avoiding This Prolific Scam - The Brooklyn District Attorney's Office
+HOME
+GET HELP
+REPORT A CRIME
+CONTACT US
+SEAL YOUR CONVICTION
+Skip to content
+FOR IMMEDIATE RELEASE
+Thursday, April 4, 2024
+Brooklyn District Attorney Eric Gonzalez Announces Disruption of
+“Pig Butchering” Operation, Shares Tips on Avoiding This Prolific Scam
+21 Web Domains Seized After Brooklyn Victims Reported Over Five Million Dollars in Losses;
+Scammers Gain Victims’ Trust and Convince Them to Make Fake Cryptocurrency Investments
+[Note: materials presented at today’s press conference are available
+here
+]
+Brooklyn District Attorney Eric Gonzalez today announced that his Virtual Currency Unit successfully disrupted a pig butchering operation that defrauded people from across the United States out of millions of dollars. Pig butchering refers to the practice of striking an online conversation with an unsuspecting person – through a random text message, a dating site match or by adding them to WhatsApp or another online group – gaining their trust and then steering them towards investing in cryptocurrency through websites and apps that are, in reality, bogus. The investments show tremendous returns but when the victims try to withdraw substantial sums they are blocked from their account and lose their entire investment.
+District Attorney Gonzalez said, “Pig butchering is a growing type of scam that defrauds residents of Brooklyn and the entire country out of billions of dollars every year. My office’s strategy is to disrupt these schemes by seizing and shutting down their online infrastructure, and to educate the public about ways to avoid becoming a victim. Awareness and education are the first and best lines of defense against these prolific scams. Investment returns that seem too good to be true are almost always just that – fake. So, I urge everyone to be very skeptical of anyone who they haven’t met in person and who offers a lucrative investment opportunity in cryptocurrency.”
+The District Attorney said that he established the Virtual Currency Unit in the fall of 2023 after hearing many complaints from Brooklyn residents who lost substantial sums to cryptocurrency scams. One was from a 51-year-old woman who, in March 2023, reported to the NYPD that she lost $22,680 after she was added to online chat groups discussing crypto investments. She was advised to download an app from coinformat.com and subsequently made eight deposits, seeing her profits rapidly climbing. Her account grew to a supposed total $387,495 but, when she tried to withdraw her initial investment, she was told she had to pay taxes. When she complained, she was blocked from the chat group and her money was gone.
+The investigation revealed that her so-called cryptocurrency investment was moved through multiple crypto addresses in a manner consistent with money laundering. It was ultimately deposited into an account at a foreign cryptocurrency exchange and cashed out by an individual in a region beyond U.S. jurisdiction, possibly China. The investigation revealed additional victims of the same scheme, from California, Pennsylvania, and Illinois, who had interreacted with coinformat.com and lost a combined total of $366,665.
+An analysis of cryptocurrency transactions and domain registry records, led to the identification of even more victims and a network of about 80 domains linked to this fraudulent cryptocurrency investment scheme. The combined total loss of the identified victims is at least $1,063,846.
+Pig butchering is a lucrative and growing global scam. The law enforcement community has learned that the masterminds of the schemes rely on human trafficking victims to help facilitate the scams at compounds that have mainly been identified in regions of Southeast Asia.  The international aspect of the scheme makes it especially challenging for a local prosecutor’s office to prosecute individual bad actors or recover stolen funds. The Brooklyn District Attorney’s Office took action to disrupt the scheme by seizing coinformat.com and 20 other active associated domains. Three virtual servers hosting those sites have also been seized. Additionally, forensic analysts were able to downland and analyze the cryptocurrency mobile apps advertised on the scam websites. Their analysis showed these were not legitimate apps – they contained malware, capable of covertly collecting usernames and passwords from the user’s phone.
+The District Attorney’s Office has received many similar complaints from residents across Brooklyn, with losses totaling over $4 million. In particular, the Chinese and Russian communities in Brooklyn appear to have been targeted by random text message invitations to invest in cryptocurrency and advertisements on social media platforms. Victims come from every precinct in Brooklyn and are of all different ages and backgrounds. Anyone can be a target of this insidious scheme. Accordingly, the office has embarked on a public information campaign to inform residents in those communities and beyond.
+The District Attorney shared the following warning signs of someone trying to lure a victim into a cryptocurrency scam:
+You get a “wrong message” text from a stranger who attempts to start a friendship and talks about how much money they’ve made by investing in cryptocurrency.
+You are added to a group chat on WhatsApp or Telegram that offers advice on how to invest in cryptocurrency with promises of getting rich quickly.
+Someone on Facebook brags about how much money they have made in cryptocurrency and tells you they can help you get rich.
+Someone you’ve never met in-person starts giving you cryptocurrency investment advice and promises returns on investments that seem too good to be true.
+You are directed to download an app to track your investments from a cryptocurrency website for a company you’ve never heard of before, not from an official mobile app store.
+The financial advisor or customer support for a cryptocurrency website communicates with you through Telegram or WhatsApp.
+You are asked to make cryptocurrency investments by giving large amounts of cash to couriers and company representatives in-person.
+You can make small withdrawals at the start but can’t withdraw any large amounts without having to pay a tax or additional fee.
+The District Attorney also shared the following tips on how to protect people from these cryptocurrency scams:
+Don’t trust cryptocurrency investment opportunities that seem too good to be true.
+Do not make cryptocurrency investments based on the advice of someone you’ve never met in person.
+Don’t download investment apps from unverified cryptocurrency investment websites.
+Don’t install apps that force you to override your phone’s security features.
+Verify the legitimacy of a company. Ask a friend, family member, or contact the KCDA Command center if you are unsure if something is legitimate.
+Never allow download programs such as AnyDesk that allows remote access to your computer.
+Do not pay more money in order to try and recover your investment from a cryptocurrency website.
+Check whether a cryptocurrency exchange is licensed to operate in New York State by going to
+https://www.dfs.ny.gov/who_we_supervise
+or calling the New York State Department of Financial Services hotline at 800-342-3736.
+The investigation into this case was handled by Assistant District Attorney Alona Katz, Chief of the Virtual Currency Unit with assistance from Senior Digital Forensic Analyst Mauricio Suarez-Marquez, under the supervision of Chief of the Digital Evidence Lab Unit Jingu Chong. Virtual Currency Analysts Sam Weaver and Lindiwe Mangondo, and Assistant District Attorney Kevin Zhen of the Frauds Bureau, assisted in the investigation. NYPD Detective James Tringali, of the Financial Crimes Taskforce, also assisted in the investigation.
+#

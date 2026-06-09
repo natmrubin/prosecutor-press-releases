@@ -26,7 +26,9 @@ HEADERS = {
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/124.0.0.0 Safari/537.36"
-    )
+    ),
+    # Exclude brotli so requests can decode the body reliably
+    "Accept-Encoding": "gzip, deflate",
 }
 REQUEST_DELAY = 1.5  # seconds between requests
 MAX_PAGES = 50       # safety cap on pagination
@@ -102,18 +104,18 @@ def scrape_links_los_angeles():
 
 def scrape_links_cook():
     """Drupal 10, ?page=N."""
-    base = "https://www.cookcountystatesattorney.org/news/press-releases"
+    base = "https://www.cookcountystatesattorney.org/news"
     links = []
     for page in range(MAX_PAGES):
         url = base if page == 0 else f"{base}?page={page}"
         resp = get(url)
         s = soup(resp)
-        items = s.select("h3 a, .views-row a[href*='/news/press-releases/']")
+        items = s.select("h3 a, .views-row a, article a[href*='/news/']")
         if not items:
             break
         for a in items:
             href = urljoin(base, a["href"])
-            if href not in links:
+            if urlparse(href).netloc == urlparse(base).netloc and href not in links:
                 links.append(href)
         if not s.select(".pager__item--next a"):
             break
@@ -151,43 +153,43 @@ def scrape_links_maricopa():
 
 
 def scrape_links_san_diego():
-    """ASP.NET static."""
+    """ASP.NET — releases are served as PDFs via GetNewsroomFile?UID=..."""
     base = "https://www.sdcda.org/office/newsroom/"
     links = []
     resp = get(base)
     s = soup(resp)
-    for a in s.select(".newsroom a, .news-list a, article a, .entry-title a, h2 a, h3 a"):
-        href = urljoin(base, a["href"])
-        if urlparse(href).netloc == urlparse(base).netloc and href not in links:
-            links.append(href)
+    for a in s.find_all("a", href=True):
+        href = a["href"]
+        if "GetNewsroomFile" in href or "newsroom" in href.lower():
+            full = urljoin(base, href)
+            if full not in links:
+                links.append(full)
     return links
 
 
 def scrape_links_orange():
-    """WordPress, path pagination /press/page/N/."""
+    """WordPress, 410 pages of releases at /press/page/N/. Stop when page returns no items."""
     base = "https://ocdistrictattorney.gov/press/"
     links = []
-    for page in range(1, MAX_PAGES + 1):
+    for page in range(1, 500):
         url = base if page == 1 else f"{base}page/{page}/"
         try:
             resp = get(url)
         except requests.HTTPError:
             break
         s = soup(resp)
-        items = s.select("h2.entry-title a, h3.entry-title a, .entry-title a")
+        items = s.select("h3 a[href*='ocdistrictattorney.gov/press/']")
         if not items:
             break
         for a in items:
             href = urljoin(base, a["href"])
             if href not in links:
                 links.append(href)
-        if not s.select("a.next"):
-            break
     return links
 
 
 def scrape_links_miami_dade():
-    """WordPress."""
+    """WordPress — releases live at /press-release/slug/."""
     base = "https://miamisao.com/news/press-release-news/"
     links = []
     for page in range(1, MAX_PAGES + 1):
@@ -197,14 +199,14 @@ def scrape_links_miami_dade():
         except requests.HTTPError:
             break
         s = soup(resp)
-        items = s.select("h2.entry-title a, h3.entry-title a, .entry-title a, article a")
+        items = s.select("h3 a[href*='/press-release/']")
         if not items:
             break
         for a in items:
             href = urljoin(base, a["href"])
             if href not in links:
                 links.append(href)
-        if not s.select("a.next"):
+        if not s.select("a.next, .nav-previous"):
             break
     return links
 
@@ -235,25 +237,31 @@ def scrape_links_dallas():
 
 
 def scrape_links_kings():
-    """WordPress, year-filtered."""
-    base = "https://www.brooklynda.org/press-releases/"
+    """Brooklyn DA — releases at brooklynda.org/YYYY/MM/DD/slug/.
+    Main page has current year; year archive pages cover prior years."""
+    year_pages = [
+        "https://www.brooklynda.org/press-releases/",
+        "https://www.brooklynda.org/2025-press-releases/",
+        "https://www.brooklynda.org/2024-press-releases/",
+        "https://www.brooklynda.org/2023-press-releases/",
+        "https://www.brooklynda.org/2022-press-releases/",
+        "https://www.brooklynda.org/2021-press-releases/",
+        "https://www.brooklynda.org/2020-press-releases/",
+    ]
     links = []
-    for page in range(1, MAX_PAGES + 1):
-        url = base if page == 1 else f"{base}page/{page}/"
+    for page_url in year_pages:
         try:
-            resp = get(url)
+            resp = get(page_url)
         except requests.HTTPError:
-            break
+            continue
         s = soup(resp)
-        items = s.select("h2.entry-title a, h3.entry-title a, .entry-title a")
-        if not items:
-            break
-        for a in items:
-            href = urljoin(base, a["href"])
-            if href not in links:
+        for a in s.find_all("a", href=True):
+            href = a["href"]
+            if not href.startswith("http"):
+                href = urljoin(page_url, href)
+            # Brooklyn releases have date-based paths: /YYYY/MM/DD/
+            if re.search(r"brooklynda\.org/20\d{2}/\d{2}/\d{2}/", href) and href not in links:
                 links.append(href)
-        if not s.select("a.next"):
-            break
     return links
 
 
@@ -328,15 +336,18 @@ def main():
 
         print(f"\n=== {county['county']}, {county['state']} ({key}) ===")
 
-        # 1. Scrape links
         scraper = LINK_SCRAPERS.get(key)
         if not scraper:
             print(f"  No scraper defined for {key}, skipping.")
             continue
-        links = scraper()
-        save_links(key, links)
 
-        # 2. Scrape full text
+        try:
+            links = scraper()
+            save_links(key, links)
+        except Exception as e:
+            print(f"  [{key}] link scrape failed: {e}")
+            continue
+
         if links:
             scrape_text(key, links)
         else:
