@@ -2,7 +2,7 @@ rank,county,state,office_name,press_release_url,folder_key,num_releases,earliest
 1,Los Angeles County,CA,Los Angeles County District Attorney's Office,https://da.lacounty.gov/media/news,los_angeles_ca,50,2015-05-05,2026-06-05
 2,Cook County,IL,Cook County State's Attorney,https://www.cookcountystatesattorney.org/news,cook_il,43,2004-12-18,2026-05-29
 3,Harris County,TX,Harris County District Attorney's Office,https://dao.harriscountytx.gov/Newsroom/News-Releases,harris_tx,12,2023-12-06,2025-09-26
-4,Maricopa County,AZ,Maricopa County Attorney's Office,https://maricopacountyattorney.org/403/Newsroom,maricopa_az,16,2015-05-23,2026-06-10
+4,Maricopa County,AZ,Maricopa County Attorney's Office,https://maricopacountyattorney.org/403/Newsroom,maricopa_az,1149,2026-05-01,2026-06-01
 5,San Diego County,CA,San Diego County District Attorney,https://www.sdcda.org/office/newsroom/,san_diego_ca,131,2023-06-10,2026-06-03
 6,Orange County,CA,Orange County District Attorney,https://ocdistrictattorney.gov/press/,orange_ca,6454,2001-09-11,2026-05-28
 7,Miami-Dade County,FL,Office of Miami-Dade State Attorney,https://miamisao.com/news/press-release-news/,miami_dade_fl,44,2000-05-25,2026-05-13

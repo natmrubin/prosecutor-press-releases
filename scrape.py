@@ -183,96 +183,29 @@ def scrape_links_harris():
 
 
 def scrape_links_maricopa():
-    """CivicPlus CMS — AJAX-loaded content requires Playwright.
-    Also checks the Media Center page which may list more releases.
-    Fetches text within the same browser session."""
-    listing_pages = [
-        "https://maricopacountyattorney.org/403/Newsroom",
-        "https://maricopacountyattorney.org/515/MCAO-Media-Center",
-    ]
-
-    if not PLAYWRIGHT_AVAILABLE:
-        print("  [maricopa_az] Playwright not installed.")
-        return []
-
+    """CivicPlus archive — 1,100+ releases on a single static page.
+    Archive: /civicalerts.aspx?ARC=L&What=1&CC=0&intArchCatID=41
+    Individual releases: /CivicAlerts.aspx?AID=<id>
+    No Playwright needed."""
+    from urllib.parse import parse_qs, urlparse as _up
+    archive = (
+        "https://maricopacountyattorney.org/civicalerts.aspx"
+        "?ARC=L&What=1&CC=0&intArchCatID=41&From=CID%3d41"
+    )
+    base = "https://maricopacountyattorney.org"
     links = []
-    text_dir = Path("text") / "maricopa_az"
-
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        context = browser.new_context(
-            user_agent=(
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/124.0.0.0 Safari/537.36"
-            ),
-            viewport={"width": 1280, "height": 800},
-        )
-        page = context.new_page()
-
-        for listing_url in listing_pages:
-            try:
-                page.goto(listing_url, wait_until="networkidle", timeout=30000)
-            except PWTimeout:
-                print(f"  [maricopa_az] timeout loading {listing_url}")
-                continue
-
-            # Click "Load More" / pagination until exhausted
-            prev_count = -1
-            while True:
-                anchors = page.query_selector_all("a[href]")
-                base_domain = "maricopacountyattorney.org"
-                for a in anchors:
-                    href = a.get_attribute("href") or ""
-                    if not href:
-                        continue
-                    full = urljoin(listing_url, href) if not href.startswith("http") else href
-                    if base_domain not in full:
-                        continue
-                    # Keep links that look like individual news items (have numeric IDs or news paths)
-                    path = urlparse(full).path
-                    if ("DocumentCenter" not in full and  # skip file downloads
-                            (re.search(r"/News/", path, re.I) or
-                             re.search(r"/\d{4}/", path) or
-                             re.search(r"ArticleID=\d+", full) or
-                             re.search(r"/CivicAlerts\.aspx", full))):
-                        if full not in links:
-                            links.append(full)
-
-                load_more = page.query_selector(
-                    "a:has-text('Next'), button:has-text('Load More'), "
-                    ".pagination a[aria-label='Next'], .pager-next a"
-                )
-                if load_more and len(links) != prev_count:
-                    prev_count = len(links)
-                    try:
-                        load_more.click()
-                        page.wait_for_load_state("networkidle", timeout=10000)
-                    except PWTimeout:
-                        break
-                else:
-                    break
-
-        # Fetch text for each release in the same browser session
-        saved = 0
-        for url in links:
-            try:
-                time.sleep(REQUEST_DELAY)
-                page.goto(url, wait_until="networkidle", timeout=20000)
-                text = page.evaluate("""() => {
-                    ['script','style','nav','footer','header'].forEach(t =>
-                        document.querySelectorAll(t).forEach(e => e.remove()));
-                    return document.body.innerText;
-                }""")
-                out = text_dir / (slug(url) + ".txt")
-                out.write_text(text.strip() + "\n")
-                saved += 1
-            except Exception as e:
-                print(f"  [text/maricopa_az] failed {url}: {e}")
-
-        print(f"  [maricopa_az] saved text for {saved}/{len(links)} releases")
-        browser.close()
-
+    seen_aids = set()
+    resp = get(archive)
+    s = soup(resp)
+    for a in s.find_all("a", href=True):
+        href = a["href"]
+        if "CivicAlerts" not in href or "AID=" not in href:
+            continue
+        qs = parse_qs(_up(href).query)
+        aid = qs.get("AID", [None])[0]
+        if aid and aid not in seen_aids:
+            seen_aids.add(aid)
+            links.append(f"{base}/CivicAlerts.aspx?AID={aid}")
     return links
 
 
@@ -544,8 +477,8 @@ def main():
             print(f"  [{key}] link scrape failed: {e}")
             continue
 
-        # These counties fetch text inside their own Playwright session
-        if key in ("riverside_ca", "maricopa_az"):
+        # Riverside fetches text inside its own Playwright session
+        if key == "riverside_ca":
             pass
         elif links:
             scrape_text(key, links)
