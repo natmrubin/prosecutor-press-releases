@@ -1,0 +1,349 @@
+#!/usr/bin/env python3
+"""
+Scrape press releases from prosecutor offices in the top 10 most populous US counties.
+
+Outputs:
+  links/<county_key>/links.txt   — one URL per line
+  text/<county_key>/<slug>.txt   — raw text of each release
+"""
+
+import csv
+import re
+import sys
+import time
+from pathlib import Path
+from urllib.parse import urljoin, urlparse
+
+import requests
+from bs4 import BeautifulSoup
+
+# ---------------------------------------------------------------------------
+# Config
+# ---------------------------------------------------------------------------
+
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
+    )
+}
+REQUEST_DELAY = 1.5  # seconds between requests
+MAX_PAGES = 50       # safety cap on pagination
+
+session = requests.Session()
+session.headers.update(HEADERS)
+
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+def get(url, **kwargs):
+    time.sleep(REQUEST_DELAY)
+    resp = session.get(url, timeout=20, **kwargs)
+    resp.raise_for_status()
+    return resp
+
+
+def soup(resp):
+    return BeautifulSoup(resp.text, "html.parser")
+
+
+def slug(url):
+    """Turn a URL into a safe filename stem."""
+    path = urlparse(url).path.strip("/").replace("/", "_")
+    path = re.sub(r"[^a-zA-Z0-9_\-]", "_", path)
+    return path[:120] or "index"
+
+
+def save_links(county_key, links):
+    out = Path("links") / county_key / "links.txt"
+    out.write_text("\n".join(links) + "\n")
+    print(f"  [{county_key}] saved {len(links)} links → {out}")
+
+
+def save_text(county_key, url, text):
+    out = Path("text") / county_key / (slug(url) + ".txt")
+    out.write_text(text.strip() + "\n")
+
+
+def extract_text(resp):
+    """Pull readable text from an HTML response."""
+    s = soup(resp)
+    for tag in s(["script", "style", "nav", "footer", "header"]):
+        tag.decompose()
+    return s.get_text(separator="\n", strip=True)
+
+
+# ---------------------------------------------------------------------------
+# Per-site scrapers — links
+# ---------------------------------------------------------------------------
+
+def scrape_links_los_angeles():
+    """Drupal 7, ?page=N pagination."""
+    base = "https://da.lacounty.gov/media/news"
+    links = []
+    for page in range(MAX_PAGES):
+        url = base if page == 0 else f"{base}?page={page}"
+        resp = get(url)
+        s = soup(resp)
+        items = s.select("h3.node-title a, .view-content h3 a, .views-row h2 a, .views-row h3 a")
+        if not items:
+            break
+        for a in items:
+            href = urljoin(base, a["href"])
+            if href not in links:
+                links.append(href)
+        if not s.select(".pager-next a"):
+            break
+    return links
+
+
+def scrape_links_cook():
+    """Drupal 10, ?page=N."""
+    base = "https://www.cookcountystatesattorney.org/news/press-releases"
+    links = []
+    for page in range(MAX_PAGES):
+        url = base if page == 0 else f"{base}?page={page}"
+        resp = get(url)
+        s = soup(resp)
+        items = s.select("h3 a, .views-row a[href*='/news/press-releases/']")
+        if not items:
+            break
+        for a in items:
+            href = urljoin(base, a["href"])
+            if href not in links:
+                links.append(href)
+        if not s.select(".pager__item--next a"):
+            break
+    return links
+
+
+def scrape_links_harris():
+    """DNN/ASP.NET static listing."""
+    base = "https://dao.harriscountytx.gov/Newsroom/News-Releases"
+    links = []
+    resp = get(base)
+    s = soup(resp)
+    for a in s.select("a[href*='News-Releases']"):
+        href = urljoin(base, a["href"])
+        if href != base and href not in links:
+            links.append(href)
+    return links
+
+
+def scrape_links_maricopa():
+    """ASP.NET AJAX — try static first, note if JS needed."""
+    base = "https://maricopacountyattorney.org/403/Newsroom"
+    links = []
+    try:
+        resp = get(base)
+        s = soup(resp)
+        for a in s.select("a[href]"):
+            href = urljoin(base, a["href"])
+            if "press" in href.lower() or "news" in href.lower() or "release" in href.lower():
+                if href not in links:
+                    links.append(href)
+    except Exception as e:
+        print(f"  [maricopa_az] static fetch failed: {e} — may need Playwright")
+    return links
+
+
+def scrape_links_san_diego():
+    """ASP.NET static."""
+    base = "https://www.sdcda.org/office/newsroom/"
+    links = []
+    resp = get(base)
+    s = soup(resp)
+    for a in s.select(".newsroom a, .news-list a, article a, .entry-title a, h2 a, h3 a"):
+        href = urljoin(base, a["href"])
+        if urlparse(href).netloc == urlparse(base).netloc and href not in links:
+            links.append(href)
+    return links
+
+
+def scrape_links_orange():
+    """WordPress, path pagination /press/page/N/."""
+    base = "https://ocdistrictattorney.gov/press/"
+    links = []
+    for page in range(1, MAX_PAGES + 1):
+        url = base if page == 1 else f"{base}page/{page}/"
+        try:
+            resp = get(url)
+        except requests.HTTPError:
+            break
+        s = soup(resp)
+        items = s.select("h2.entry-title a, h3.entry-title a, .entry-title a")
+        if not items:
+            break
+        for a in items:
+            href = urljoin(base, a["href"])
+            if href not in links:
+                links.append(href)
+        if not s.select("a.next"):
+            break
+    return links
+
+
+def scrape_links_miami_dade():
+    """WordPress."""
+    base = "https://miamisao.com/news/press-release-news/"
+    links = []
+    for page in range(1, MAX_PAGES + 1):
+        url = base if page == 1 else f"{base}page/{page}/"
+        try:
+            resp = get(url)
+        except requests.HTTPError:
+            break
+        s = soup(resp)
+        items = s.select("h2.entry-title a, h3.entry-title a, .entry-title a, article a")
+        if not items:
+            break
+        for a in items:
+            href = urljoin(base, a["href"])
+            if href not in links:
+                links.append(href)
+        if not s.select("a.next"):
+            break
+    return links
+
+
+def scrape_links_dallas():
+    """Percussion CMS, year-based archive pages."""
+    bases = [
+        "https://www.dallascounty.org/government/district-attorney/press-releases/",
+    ]
+    # Also check known archive pages
+    for yr in range(18, 27):
+        bases.append(
+            f"https://www.dallascounty.org/government/district-attorney/"
+            f"press-releases/press-releases-{yr:02d}.php"
+        )
+    links = []
+    for url in bases:
+        try:
+            resp = get(url)
+        except requests.HTTPError:
+            continue
+        s = soup(resp)
+        for a in s.select("a[href]"):
+            href = urljoin(url, a["href"])
+            if "press-release" in href.lower() and href not in links:
+                links.append(href)
+    return links
+
+
+def scrape_links_kings():
+    """WordPress, year-filtered."""
+    base = "https://www.brooklynda.org/press-releases/"
+    links = []
+    for page in range(1, MAX_PAGES + 1):
+        url = base if page == 1 else f"{base}page/{page}/"
+        try:
+            resp = get(url)
+        except requests.HTTPError:
+            break
+        s = soup(resp)
+        items = s.select("h2.entry-title a, h3.entry-title a, .entry-title a")
+        if not items:
+            break
+        for a in items:
+            href = urljoin(base, a["href"])
+            if href not in links:
+                links.append(href)
+        if not s.select("a.next"):
+            break
+    return links
+
+
+def scrape_links_riverside():
+    """Cloudflare-protected; attempt static fetch."""
+    base = "https://rivcoda.org/news-media-archives"
+    links = []
+    try:
+        resp = get(base)
+        s = soup(resp)
+        for a in s.select("a[href]"):
+            href = urljoin(base, a["href"])
+            if urlparse(href).netloc == urlparse(base).netloc and href not in links:
+                links.append(href)
+    except Exception as e:
+        print(f"  [riverside_ca] fetch failed (Cloudflare?): {e}")
+    return links
+
+
+# ---------------------------------------------------------------------------
+# Dispatcher
+# ---------------------------------------------------------------------------
+
+LINK_SCRAPERS = {
+    "los_angeles_ca": scrape_links_los_angeles,
+    "cook_il":        scrape_links_cook,
+    "harris_tx":      scrape_links_harris,
+    "maricopa_az":    scrape_links_maricopa,
+    "san_diego_ca":   scrape_links_san_diego,
+    "orange_ca":      scrape_links_orange,
+    "miami_dade_fl":  scrape_links_miami_dade,
+    "dallas_tx":      scrape_links_dallas,
+    "kings_ny":       scrape_links_kings,
+    "riverside_ca":   scrape_links_riverside,
+}
+
+
+# ---------------------------------------------------------------------------
+# Text scraping
+# ---------------------------------------------------------------------------
+
+def scrape_text(county_key, links):
+    count = 0
+    for url in links:
+        try:
+            resp = get(url)
+            text = extract_text(resp)
+            save_text(county_key, url, text)
+            count += 1
+        except Exception as e:
+            print(f"  [text/{county_key}] failed {url}: {e}")
+    print(f"  [{county_key}] saved text for {count}/{len(links)} releases")
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+
+def load_counties():
+    with open("counties.csv") as f:
+        return list(csv.DictReader(f))
+
+
+def main():
+    counties = load_counties()
+    targets = sys.argv[1:] if sys.argv[1:] else [c["folder_key"] for c in counties]
+
+    for county in counties:
+        key = county["folder_key"]
+        if key not in targets:
+            continue
+
+        print(f"\n=== {county['county']}, {county['state']} ({key}) ===")
+
+        # 1. Scrape links
+        scraper = LINK_SCRAPERS.get(key)
+        if not scraper:
+            print(f"  No scraper defined for {key}, skipping.")
+            continue
+        links = scraper()
+        save_links(key, links)
+
+        # 2. Scrape full text
+        if links:
+            scrape_text(key, links)
+        else:
+            print(f"  [{key}] no links found — check site structure or JS rendering")
+
+    print("\nDone.")
+
+
+if __name__ == "__main__":
+    main()
