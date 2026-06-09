@@ -66,16 +66,15 @@ def slug(url):
     return path[:120] or "index"
 
 
-def earliest_year_on_page(s):
-    """Return the smallest 4-digit year found in page text, or None."""
-    years = [int(y) for y in re.findall(r"\b(19\d{2}|20\d{2})\b", s.get_text())]
-    return min(years) if years else None
-
-
-def page_is_past_cutoff(s):
-    """True if the oldest year visible on the listing page pre-dates CUTOFF_YEAR."""
-    yr = earliest_year_on_page(s)
-    return yr is not None and yr < CUTOFF_YEAR
+def links_past_cutoff(hrefs):
+    """True if any of the scraped URLs contain a year older than CUTOFF_YEAR.
+    Only fires when URLs themselves embed a year (e.g. /2000/01/15/ or -1999-).
+    Ignores footer/copyright years that appear in page prose."""
+    for href in hrefs:
+        m = re.search(r"/(1[89]\d{2}|20\d{2})/", href)
+        if m and int(m.group(1)) < CUTOFF_YEAR:
+            return True
+    return False
 
 
 def save_links(county_key, links):
@@ -102,7 +101,7 @@ def extract_text(resp):
 # ---------------------------------------------------------------------------
 
 def scrape_links_los_angeles():
-    """Drupal 7, ?page=N pagination, 1 release per page."""
+    """Drupal 7, ?page=N pagination, 1 release per page. Paginate until no next button."""
     base = "https://da.lacounty.gov/media/news"
     links = []
     for page in range(MAX_PAGES):
@@ -116,15 +115,13 @@ def scrape_links_los_angeles():
             href = urljoin(base, a["href"])
             if href not in links:
                 links.append(href)
-        if page_is_past_cutoff(s):
-            break
         if not s.select(".pager-next a"):
             break
     return links
 
 
 def scrape_links_cook():
-    """Drupal 10, ?page=N."""
+    """Drupal 10, ?page=N. Paginate until no next button."""
     base = "https://www.cookcountystatesattorney.org/news"
     links = []
     for page in range(MAX_PAGES):
@@ -138,8 +135,6 @@ def scrape_links_cook():
             href = urljoin(base, a["href"])
             if urlparse(href).netloc == urlparse(base).netloc and href not in links:
                 links.append(href)
-        if page_is_past_cutoff(s):
-            break
         if not s.select(".pager__item--next a"):
             break
     return links
@@ -191,7 +186,7 @@ def scrape_links_san_diego():
 
 
 def scrape_links_orange():
-    """WordPress, ~410 pages of releases at /press/page/N/."""
+    """WordPress, ~410 pages of releases at /press/page/N/. Paginate until no items."""
     base = "https://ocdistrictattorney.gov/press/"
     links = []
     for page in range(1, MAX_PAGES + 1):
@@ -208,13 +203,11 @@ def scrape_links_orange():
             href = urljoin(base, a["href"])
             if href not in links:
                 links.append(href)
-        if page_is_past_cutoff(s):
-            break
     return links
 
 
 def scrape_links_miami_dade():
-    """WordPress — releases live at /press-release/slug/."""
+    """WordPress — releases live at /press-release/slug/. Paginate until no items or no next."""
     base = "https://miamisao.com/news/press-release-news/"
     links = []
     for page in range(1, MAX_PAGES + 1):
@@ -227,11 +220,13 @@ def scrape_links_miami_dade():
         items = s.select("h3 a[href*='/press-release/']")
         if not items:
             break
+        page_links = []
         for a in items:
             href = urljoin(base, a["href"])
             if href not in links:
                 links.append(href)
-        if page_is_past_cutoff(s):
+                page_links.append(href)
+        if links_past_cutoff(page_links):
             break
         if not s.select("a.next, .nav-previous"):
             break
@@ -264,7 +259,7 @@ def scrape_links_dallas():
 
 def scrape_links_kings():
     """Brooklyn DA — releases at brooklynda.org/YYYY/MM/DD/slug/.
-    Main page has current year; year archive pages cover prior years back to 2000."""
+    Main page has current year; year archive pages cover prior years back to CUTOFF_YEAR."""
     year_pages = ["https://www.brooklynda.org/press-releases/"]
     for yr in range(2025, CUTOFF_YEAR - 1, -1):
         year_pages.append(f"https://www.brooklynda.org/{yr}-press-releases/")
@@ -275,12 +270,16 @@ def scrape_links_kings():
         except requests.HTTPError:
             continue
         s = soup(resp)
+        page_links = []
         for a in s.find_all("a", href=True):
             href = a["href"]
             if not href.startswith("http"):
                 href = urljoin(page_url, href)
             if re.search(r"brooklynda\.org/20\d{2}/\d{2}/\d{2}/", href) and href not in links:
                 links.append(href)
+                page_links.append(href)
+        if links_past_cutoff(page_links):
+            break
     return links
 
 
