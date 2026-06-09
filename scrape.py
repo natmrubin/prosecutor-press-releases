@@ -273,6 +273,8 @@ def scrape_links_kings():
 
 def scrape_links_riverside():
     """Cloudflare-protected — requires Playwright with headless Chromium.
+    Also fetches and saves text for each release within the same browser session
+    so Cloudflare cookies are reused.
     Falls back to a warning if Playwright is not installed."""
     base = "https://rivcoda.org/news-media-archives"
 
@@ -300,13 +302,12 @@ def scrape_links_riverside():
             browser.close()
             return []
 
-        # Check if Cloudflare challenge is still showing
         if "just a moment" in page.title().lower() or "checking your browser" in page.content().lower():
             print("  [riverside_ca] Cloudflare challenge not bypassed in headless mode — try headless=False")
             browser.close()
             return []
 
-        # Collect release links; handle infinite scroll / load-more pagination
+        # Paginate through listing pages
         prev_count = -1
         while True:
             anchors = page.query_selector_all("a[href]")
@@ -315,13 +316,10 @@ def scrape_links_riverside():
                 if not href:
                     continue
                 full = urljoin(base, href)
-                parsed = urlparse(full)
-                if parsed.netloc == urlparse(base).netloc and full not in links:
-                    # Filter to paths that look like individual releases (not nav/utility)
+                if urlparse(full).netloc == urlparse(base).netloc and full not in links:
                     if any(kw in full.lower() for kw in ["news", "release", "press", "media", "article"]):
                         links.append(full)
 
-            # Try clicking a "Load More" or "Next" button if present
             load_more = page.query_selector(
                 "a:has-text('Next'), a:has-text('Load More'), button:has-text('Load More'), .pager-next a"
             )
@@ -335,7 +333,28 @@ def scrape_links_riverside():
             else:
                 break
 
+        # Fetch text for each release using the same browser context (preserves CF cookies)
+        text_dir = Path("text") / "riverside_ca"
+        saved = 0
+        for url in links:
+            try:
+                time.sleep(REQUEST_DELAY)
+                page.goto(url, wait_until="networkidle", timeout=20000)
+                # Strip nav/footer noise via JS then grab innerText
+                text = page.evaluate("""() => {
+                    ['script','style','nav','footer','header'].forEach(t =>
+                        document.querySelectorAll(t).forEach(e => e.remove()));
+                    return document.body.innerText;
+                }""")
+                out = text_dir / (slug(url) + ".txt")
+                out.write_text(text.strip() + "\n")
+                saved += 1
+            except Exception as e:
+                print(f"  [text/riverside_ca] failed {url}: {e}")
+
+        print(f"  [riverside_ca] saved text for {saved}/{len(links)} releases")
         browser.close()
+
     return links
 
 
@@ -406,7 +425,10 @@ def main():
             print(f"  [{key}] link scrape failed: {e}")
             continue
 
-        if links:
+        # Riverside fetches text inside its own Playwright session
+        if key == "riverside_ca":
+            pass
+        elif links:
             scrape_text(key, links)
         else:
             print(f"  [{key}] no links found — check site structure or JS rendering")
