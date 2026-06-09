@@ -4,7 +4,7 @@ rank,county,state,office_name,press_release_url,folder_key,num_releases,earliest
 3,Harris County,TX,Harris County District Attorney's Office,https://dao.harriscountytx.gov/Newsroom/News-Releases,harris_tx,12,2023-12-06,2025-09-26
 4,Maricopa County,AZ,Maricopa County Attorney's Office,https://maricopacountyattorney.org/403/Newsroom,maricopa_az,5,,
 5,San Diego County,CA,San Diego County District Attorney,https://www.sdcda.org/office/newsroom/,san_diego_ca,133,2024-06-10,2026-06-03
-6,Orange County,CA,Orange County District Attorney,https://ocdistrictattorney.gov/press/,orange_ca,16,2020-05-15,2026-05-28
+6,Orange County,CA,Orange County District Attorney,https://ocdistrictattorney.gov/press/,orange_ca,715,2001-09-11,2026-05-28
 7,Miami-Dade County,FL,Office of Miami-Dade State Attorney,https://miamisao.com/news/press-release-news/,miami_dade_fl,44,2000-05-25,2026-05-13
 8,Dallas County,TX,Dallas County District Attorney,https://www.dallascounty.org/government/district-attorney/press-releases/,dallas_tx,154,2006-02-06,2024-07-11
 9,Kings County (Brooklyn),NY,Brooklyn District Attorney's Office,https://www.brooklynda.org/press-releases/,kings_ny,550,2000-01-01,2026-08-12

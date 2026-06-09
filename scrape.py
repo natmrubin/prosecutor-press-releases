@@ -17,6 +17,12 @@ from urllib.parse import urljoin, urlparse
 import requests
 from bs4 import BeautifulSoup
 
+try:
+    from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout
+    PLAYWRIGHT_AVAILABLE = True
+except ImportError:
+    PLAYWRIGHT_AVAILABLE = False
+
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
@@ -171,7 +177,7 @@ def scrape_links_orange():
     """WordPress, 410 pages of releases at /press/page/N/. Stop when page returns no items."""
     base = "https://ocdistrictattorney.gov/press/"
     links = []
-    for page in range(1, 500):
+    for page in range(1, MAX_PAGES + 1):
         url = base if page == 1 else f"{base}page/{page}/"
         try:
             resp = get(url)
@@ -266,18 +272,70 @@ def scrape_links_kings():
 
 
 def scrape_links_riverside():
-    """Cloudflare-protected; attempt static fetch."""
+    """Cloudflare-protected — requires Playwright with headless Chromium.
+    Falls back to a warning if Playwright is not installed."""
     base = "https://rivcoda.org/news-media-archives"
+
+    if not PLAYWRIGHT_AVAILABLE:
+        print("  [riverside_ca] Playwright not installed. Run: pip3 install playwright && playwright install chromium")
+        return []
+
     links = []
-    try:
-        resp = get(base)
-        s = soup(resp)
-        for a in s.select("a[href]"):
-            href = urljoin(base, a["href"])
-            if urlparse(href).netloc == urlparse(base).netloc and href not in links:
-                links.append(href)
-    except Exception as e:
-        print(f"  [riverside_ca] fetch failed (Cloudflare?): {e}")
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        context = browser.new_context(
+            user_agent=(
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/124.0.0.0 Safari/537.36"
+            ),
+            viewport={"width": 1280, "height": 800},
+        )
+        page = context.new_page()
+
+        try:
+            page.goto(base, wait_until="networkidle", timeout=30000)
+        except PWTimeout:
+            print("  [riverside_ca] page load timed out")
+            browser.close()
+            return []
+
+        # Check if Cloudflare challenge is still showing
+        if "just a moment" in page.title().lower() or "checking your browser" in page.content().lower():
+            print("  [riverside_ca] Cloudflare challenge not bypassed in headless mode — try headless=False")
+            browser.close()
+            return []
+
+        # Collect release links; handle infinite scroll / load-more pagination
+        prev_count = -1
+        while True:
+            anchors = page.query_selector_all("a[href]")
+            for a in anchors:
+                href = a.get_attribute("href") or ""
+                if not href:
+                    continue
+                full = urljoin(base, href)
+                parsed = urlparse(full)
+                if parsed.netloc == urlparse(base).netloc and full not in links:
+                    # Filter to paths that look like individual releases (not nav/utility)
+                    if any(kw in full.lower() for kw in ["news", "release", "press", "media", "article"]):
+                        links.append(full)
+
+            # Try clicking a "Load More" or "Next" button if present
+            load_more = page.query_selector(
+                "a:has-text('Next'), a:has-text('Load More'), button:has-text('Load More'), .pager-next a"
+            )
+            if load_more and len(links) != prev_count:
+                prev_count = len(links)
+                try:
+                    load_more.click()
+                    page.wait_for_load_state("networkidle", timeout=10000)
+                except PWTimeout:
+                    break
+            else:
+                break
+
+        browser.close()
     return links
 
 
