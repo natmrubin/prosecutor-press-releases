@@ -37,7 +37,8 @@ HEADERS = {
     "Accept-Encoding": "gzip, deflate",
 }
 REQUEST_DELAY = 1.5  # seconds between requests
-MAX_PAGES = 50       # safety cap on pagination
+MAX_PAGES = 5000     # high cap — date-based stopping is the real limit
+CUTOFF_YEAR = 2000   # stop paginating when releases pre-date this year
 
 session = requests.Session()
 session.headers.update(HEADERS)
@@ -65,6 +66,18 @@ def slug(url):
     return path[:120] or "index"
 
 
+def earliest_year_on_page(s):
+    """Return the smallest 4-digit year found in page text, or None."""
+    years = [int(y) for y in re.findall(r"\b(19\d{2}|20\d{2})\b", s.get_text())]
+    return min(years) if years else None
+
+
+def page_is_past_cutoff(s):
+    """True if the oldest year visible on the listing page pre-dates CUTOFF_YEAR."""
+    yr = earliest_year_on_page(s)
+    return yr is not None and yr < CUTOFF_YEAR
+
+
 def save_links(county_key, links):
     out = Path("links") / county_key / "links.txt"
     out.write_text("\n".join(links) + "\n")
@@ -89,7 +102,7 @@ def extract_text(resp):
 # ---------------------------------------------------------------------------
 
 def scrape_links_los_angeles():
-    """Drupal 7, ?page=N pagination."""
+    """Drupal 7, ?page=N pagination, 1 release per page."""
     base = "https://da.lacounty.gov/media/news"
     links = []
     for page in range(MAX_PAGES):
@@ -103,6 +116,8 @@ def scrape_links_los_angeles():
             href = urljoin(base, a["href"])
             if href not in links:
                 links.append(href)
+        if page_is_past_cutoff(s):
+            break
         if not s.select(".pager-next a"):
             break
     return links
@@ -123,6 +138,8 @@ def scrape_links_cook():
             href = urljoin(base, a["href"])
             if urlparse(href).netloc == urlparse(base).netloc and href not in links:
                 links.append(href)
+        if page_is_past_cutoff(s):
+            break
         if not s.select(".pager__item--next a"):
             break
     return links
@@ -174,7 +191,7 @@ def scrape_links_san_diego():
 
 
 def scrape_links_orange():
-    """WordPress, 410 pages of releases at /press/page/N/. Stop when page returns no items."""
+    """WordPress, ~410 pages of releases at /press/page/N/."""
     base = "https://ocdistrictattorney.gov/press/"
     links = []
     for page in range(1, MAX_PAGES + 1):
@@ -191,6 +208,8 @@ def scrape_links_orange():
             href = urljoin(base, a["href"])
             if href not in links:
                 links.append(href)
+        if page_is_past_cutoff(s):
+            break
     return links
 
 
@@ -212,18 +231,19 @@ def scrape_links_miami_dade():
             href = urljoin(base, a["href"])
             if href not in links:
                 links.append(href)
+        if page_is_past_cutoff(s):
+            break
         if not s.select("a.next, .nav-previous"):
             break
     return links
 
 
 def scrape_links_dallas():
-    """Percussion CMS, year-based archive pages."""
+    """Percussion CMS, year-based archive pages back to 2000."""
     bases = [
         "https://www.dallascounty.org/government/district-attorney/press-releases/",
     ]
-    # Also check known archive pages
-    for yr in range(18, 27):
+    for yr in range(0, 27):  # 00 through 26
         bases.append(
             f"https://www.dallascounty.org/government/district-attorney/"
             f"press-releases/press-releases-{yr:02d}.php"
@@ -244,16 +264,10 @@ def scrape_links_dallas():
 
 def scrape_links_kings():
     """Brooklyn DA — releases at brooklynda.org/YYYY/MM/DD/slug/.
-    Main page has current year; year archive pages cover prior years."""
-    year_pages = [
-        "https://www.brooklynda.org/press-releases/",
-        "https://www.brooklynda.org/2025-press-releases/",
-        "https://www.brooklynda.org/2024-press-releases/",
-        "https://www.brooklynda.org/2023-press-releases/",
-        "https://www.brooklynda.org/2022-press-releases/",
-        "https://www.brooklynda.org/2021-press-releases/",
-        "https://www.brooklynda.org/2020-press-releases/",
-    ]
+    Main page has current year; year archive pages cover prior years back to 2000."""
+    year_pages = ["https://www.brooklynda.org/press-releases/"]
+    for yr in range(2025, CUTOFF_YEAR - 1, -1):
+        year_pages.append(f"https://www.brooklynda.org/{yr}-press-releases/")
     links = []
     for page_url in year_pages:
         try:
@@ -265,7 +279,6 @@ def scrape_links_kings():
             href = a["href"]
             if not href.startswith("http"):
                 href = urljoin(page_url, href)
-            # Brooklyn releases have date-based paths: /YYYY/MM/DD/
             if re.search(r"brooklynda\.org/20\d{2}/\d{2}/\d{2}/", href) and href not in links:
                 links.append(href)
     return links
