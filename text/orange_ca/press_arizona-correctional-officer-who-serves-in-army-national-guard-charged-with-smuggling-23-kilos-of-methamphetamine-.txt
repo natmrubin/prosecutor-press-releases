@@ -52,4 +52,4 @@ Press
 Name*
 Email*
 Please leave this field empty.
-Are You a Human? 4 + 1 =
+Are You a Human? 3 + 1 =

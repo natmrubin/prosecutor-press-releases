@@ -70,4 +70,4 @@ Press
 Name*
 Email*
 Please leave this field empty.
-Are You a Human? 4 + 4 =
+Are You a Human? 1 + 1 =

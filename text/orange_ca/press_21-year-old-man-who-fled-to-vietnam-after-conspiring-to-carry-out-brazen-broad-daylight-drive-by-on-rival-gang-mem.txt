@@ -67,4 +67,4 @@ Press
 Name*
 Email*
 Please leave this field empty.
-Are You a Human? 9 + 9 =
+Are You a Human? 5 + 3 =

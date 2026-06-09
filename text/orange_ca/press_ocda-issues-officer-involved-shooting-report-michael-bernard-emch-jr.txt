@@ -47,7 +47,7 @@ Press
 Name*
 Email*
 Please leave this field empty.
-Are You a Human? 2 + 4 =
+Are You a Human? 1 + 2 =
 Recent Posts
 Officer-Involved Shooting Reports
 Press

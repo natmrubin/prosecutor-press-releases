@@ -1,0 +1,68 @@
+Former Employee Sentenced for Hacking Into Non-Profit’s Computer Network - The Brooklyn District Attorney's Office
+HOME
+GET HELP
+REPORT A CRIME
+CONTACT US
+SEAL YOUR CONVICTION
+Skip to content
+FOR IMMEDIATE RELEASE
+Thursday, December 10, 2015
+Former Employee Sentenced for Hacking Into
+Non-Profit’s Computer Network
+Defendant Installed Keylogging Software to Obtain Passwords and Other Information,
+Was Caught Before Successfully Stealing Data
+Brooklyn District Attorney Ken Thompson announced today that a former computer network administrator at Housing Works was sentenced community service and to conditional discharge for hacking into his former employer’s computer network.
+District Attorney Thompson said, “Computer hacking invades privacy and can cause substantial damage to people’s finances and reputations. That’s why we’re determined to investigate and fully prosecute anyone who hacks into a computer network here in Brooklyn – whether they successfully steal information or not.”
+The District Attorney identified the defendant as J. Anthony Ilustrisimo, 28, of 15 Carol Place in Bloomfield, NJ. He was sentenced today by Brooklyn Criminal Court Judge Craig Walker to 150 hours of community service and conditional discharge following his guilty plea on September 8, 2015 to one count of unauthorized use of a computer, an A misdemeanor. If the defendant fails to complete his community service, he faces up to one year in jail.
+The District Attorney said that, according to the investigation, the defendant worked as lead administrator at the Information Technology Department of Housing Works between December 2009 and September 2013. On January 9, 2014, an IT employee in the organization’s offices at 57 Willoughby Street in Downtown Brooklyn noticed that his computer had been logged into under a local administrator account, not under his log in name, and that it was running slowly.
+Upon investigation, the employee learned that keylogging software, which tracks all key strokes typed on a compromised computer, had been installed on his PC. The employee called his supervisor, who inspected the overnight logs and found that someone using a computer named J0K3RR (pronounced “joker”) had made attempts to access the network. The supervisor, who knew the defendant for many years and had played computer games with him, immediately recognized the computer name J0K3RR as belonging to the defendant. He subsequently reported the case.
+An investigation by the NYPD and the District Attorney’s Office revealed that in the early morning hours of January 9, 2014, a computer identified as the defendant’s through an IP address and an email address made a succession of failed attempts to log into the Housing Works system by using a Remote Access Server. When that did not work, the defendant used a LogMeIn account he had left open during his time at Housing Works. (LogMeIn is a subscription VPN service that allows remote access to a computer through a third party website). That allowed him to log in only as a local administrator, which permits limited use without full network access.
+District Attorney Thompson said that at about 3:30 a.m., the defendant installed a program called Actual Keylogger onto the compromised PC, which recorded data entered by the employee, according to the complaint. At least two passwords and other business-related data were later recorded by the software.
+The case was investigated by Detective Andrew Jackson and Forensic Examiner Detective Richard MacNamara, of the NYPD’s Computers Crimes Squad, under the supervision of Lieutenant Felix Rivera.
+The case was prosecuted by Assistant District Attorney Adam Zion of the District Attorney’s Cybercrimes Unit, under the supervision of Felice Sontupe, Chief of the District Attorney’s Frauds Bureau, and the overall supervision of Executive Assistant District Attorney William E. Schaeffer, Chief of the Investigations Division.
+#
+T
+HE
+B
+ROOKLYN
+D
+ISTRICT
+A
+TTORNEY'S
+O
+FFICE
+District Attorney's Action Center
+350 Jay Street
+Brooklyn, NY 11201
+718-250-2340
+Leadership
+Meet The DA
+Executive Team
+Bureaus & Units
+Special Programs
+Justice 2020
+Post-Conviction Bureau
+Re-Entry Bureau
+Youth Diversion &
+Initiatives
+Seal Your Conviction
+Victim Services
+DA's Action Center
+Immigrant Affairs Unit
+Frauds Bureau
+Human Trafficking Unit
+Family Justice Center
+Careers
+Legal Recruitment
+Internships
+Legal Training
+Non-Legal Recruitment
+Newsroom
+Press Releases
+Media
+Justice News
+Op-Eds
+Podcasts
+Community Engagement
+Resources
+Accessibility

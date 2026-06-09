@@ -51,4 +51,4 @@ Press
 Name*
 Email*
 Please leave this field empty.
-Are You a Human? 7 + 9 =
+Are You a Human? 3 + 9 =
