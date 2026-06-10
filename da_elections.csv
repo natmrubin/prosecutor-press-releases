@@ -1,0 +1,91 @@
+county,state,office_title,election_year,election_type,candidate,party,incumbent,vote_pct,votes,result,notes
+Los Angeles County,CA,District Attorney,2000,Primary,Steve Cooley,Republican,N,38.31%,573236,Won,Defeated incumbent Gil Garcetti in 3-way primary
+Los Angeles County,CA,District Attorney,2000,Primary,Gil Garcetti,Democrat,Y,37.30%,,Lost,Incumbent; lost primary to Cooley
+Los Angeles County,CA,District Attorney,2000,General,Steve Cooley,Republican,N,63.77%,1448418,Won,
+Los Angeles County,CA,District Attorney,2000,General,Gil Garcetti,Democrat,Y,36.23%,,Lost,
+Los Angeles County,CA,District Attorney,2004,Primary,Steve Cooley,Republican,Y,59.15%,596616,Won,Ran against Nick Pacheco and others; no general election contest
+Los Angeles County,CA,District Attorney,2008,Primary,Steve Cooley,Republican,Y,64.86%,400155,Won,Defeated Albert Robles (19.6%) and Steve Ipsen (15.5%)
+Los Angeles County,CA,District Attorney,2012,Primary,Jackie Lacey,Democrat,N,,,Advanced,Advanced from primary with Alan Jackson; Trutanich eliminated
+Los Angeles County,CA,District Attorney,2012,General,Jackie Lacey,Democrat,N,55.00%,,Won,Defeated Alan Jackson
+Los Angeles County,CA,District Attorney,2012,General,Alan Jackson,Republican,N,45.00%,,Lost,
+Los Angeles County,CA,District Attorney,2020,General,George Gascón,Democrat,N,53.53%,,Won,Progressive challenger
+Los Angeles County,CA,District Attorney,2020,General,Jackie Lacey,Democrat,Y,46.47%,,Lost,Incumbent
+Los Angeles County,CA,District Attorney,2024,General,Nathan Hochman,Independent,N,59.00%,,Won,Won by ~20-point margin; sworn in by Arnold Schwarzenegger
+Los Angeles County,CA,District Attorney,2024,General,George Gascón,Democrat,Y,41.00%,,Lost,Incumbent
+Cook County,IL,State's Attorney,2000,General,Richard Devine,Democrat,Y,78.30%,,Won,
+Cook County,IL,State's Attorney,2000,General,Gaughan,,N,21.70%,,Lost,
+Cook County,IL,State's Attorney,2004,General,Richard Devine,Democrat,Y,79.43%,,Won,
+Cook County,IL,State's Attorney,2004,General,Spiwak,,N,20.57%,,Lost,
+Cook County,IL,State's Attorney,2008,General,Anita Alvarez,Democrat,N,69.90%,,Won,
+Cook County,IL,State's Attorney,2008,General,Peraica,,Republican,N,25.08%,,Lost,
+Cook County,IL,State's Attorney,2012,General,Anita Alvarez,Democrat,Y,77.05%,,Won,
+Cook County,IL,State's Attorney,2012,General,Yokoyama,,Republican,N,22.77%,,Lost,
+Cook County,IL,State's Attorney,2016,General,Kim Foxx,Democrat,N,72.06%,,Won,Defeated incumbent Alvarez in primary first
+Cook County,IL,State's Attorney,2016,General,Pfannkuche,,Republican,N,27.94%,,Lost,
+Cook County,IL,State's Attorney,2020,General,Kim Foxx,Democrat,Y,54.21%,,Won,
+Cook County,IL,State's Attorney,2020,General,O'Brien,,Republican,N,39.08%,,Lost,
+Cook County,IL,State's Attorney,2024,General,Eileen O'Neill Burke,Democrat,N,,,Won,Foxx did not seek re-election
+Harris County,TX,District Attorney,2000,General,Chuck Rosenthal,Republican,N,,,Won,Succeeded retiring Johnny Holmes
+Harris County,TX,District Attorney,2004,General,Chuck Rosenthal,Republican,Y,,,Won,
+Harris County,TX,District Attorney,2008,General,Pat Lykos,Republican,N,,,Won,Rosenthal withdrew amid scandal; Lykos won primary then general
+Harris County,TX,District Attorney,2012,General,Mike Anderson,Republican,N,,,Won,Defeated incumbent Pat Lykos in primary; died in office Sept 2013
+Harris County,TX,District Attorney,2014,General,Devon Anderson,Republican,Y,,,Won,Appointed after husband Mike Anderson's death; won special election
+Harris County,TX,District Attorney,2016,General,Kim Ogg,Democrat,N,,,Won,Defeated incumbent Devon Anderson
+Harris County,TX,District Attorney,2020,General,Kim Ogg,Democrat,Y,,,Won,
+Harris County,TX,District Attorney,2024,Primary,Sean Teare,Democrat,N,,,Won,Defeated incumbent Ogg in Democratic primary by a landslide
+Harris County,TX,District Attorney,2024,General,Sean Teare,Democrat,N,,,Won,
+Maricopa County,AZ,County Attorney,2000,General,Rick Romley,Republican,Y,,,Won,
+Maricopa County,AZ,County Attorney,2004,General,Andrew Thomas,Republican,N,58.00%,,Won,Defeated Romley-aligned candidate with 58%+ of vote
+Maricopa County,AZ,County Attorney,2008,General,Andrew Thomas,Republican,Y,,,Won,Defeated Nelson by 7%+ margin
+Maricopa County,AZ,County Attorney,2010,Special,Bill Montgomery,Republican,N,,,Won,Thomas resigned April 2010; Romley served interim; Montgomery won special election Nov 2010
+Maricopa County,AZ,County Attorney,2012,General,Bill Montgomery,Republican,Y,,,Won,
+Maricopa County,AZ,County Attorney,2016,General,Bill Montgomery,Republican,Y,,,Won,
+Maricopa County,AZ,County Attorney,2020,General,Allister Adel,Republican,N,,,Won,Montgomery appointed to AZ Supreme Court; Adel won general
+Maricopa County,AZ,County Attorney,2022,General,Rachel Mitchell,Republican,N,,,Won,Adel resigned due to health issues 2022; Mitchell appointed then won election
+San Diego County,CA,District Attorney,2002,General,Bonnie Dumanis,Republican,N,,,Won,Defeated incumbent Paul Pfingst; office is nonpartisan
+San Diego County,CA,District Attorney,2006,General,Bonnie Dumanis,Republican,Y,100.00%,,Won,Ran unopposed
+San Diego County,CA,District Attorney,2010,General,Bonnie Dumanis,Republican,Y,100.00%,,Won,Ran unopposed
+San Diego County,CA,District Attorney,2014,General,Bonnie Dumanis,Republican,Y,55.00%,,Won,Faced two challengers; won with 55% in June primary
+San Diego County,CA,District Attorney,2018,General,Summer Stephan,Republican,Y,63.70%,,Won,Appointed 2017 after Dumanis resignation; defeated Geneviève Jones-Wright (D) 63.7%
+San Diego County,CA,District Attorney,2018,General,Geneviève Jones-Wright,Democrat,N,36.30%,,Lost,
+San Diego County,CA,District Attorney,2022,General,Summer Stephan,Republican,Y,,,Won,
+Orange County,CA,District Attorney,2002,General,Tony Rackauckas,Republican,Y,62.00%,,Won,Rematch vs. Wally Wade; 62% of vote; nonpartisan office
+Orange County,CA,District Attorney,2002,General,Wally Wade,,N,38.00%,,Lost,
+Orange County,CA,District Attorney,2006,General,Tony Rackauckas,Republican,Y,100.00%,,Won,Ran unopposed
+Orange County,CA,District Attorney,2010,General,Tony Rackauckas,Republican,Y,100.00%,,Won,Ran unopposed
+Orange County,CA,District Attorney,2014,General,Tony Rackauckas,Republican,Y,73.30%,,Won,Defeated Greg Diamond
+Orange County,CA,District Attorney,2014,General,Greg Diamond,,N,26.70%,,Lost,
+Orange County,CA,District Attorney,2018,General,Todd Spitzer,Republican,N,53.20%,,Won,First new DA in 20 years; nonpartisan office
+Orange County,CA,District Attorney,2018,General,Tony Rackauckas,Republican,Y,46.80%,,Lost,Incumbent
+Orange County,CA,District Attorney,2022,General,Todd Spitzer,Republican,Y,62.50%,,Won,
+Orange County,CA,District Attorney,2022,General,Pete Hardin,Democrat,N,21.30%,,Lost,
+Orange County,CA,District Attorney,2022,General,Bryan Chehock,No Party Preference,N,8.20%,,Lost,
+Orange County,CA,District Attorney,2022,General,Michael A. Jacobs,Republican,N,8.00%,,Lost,
+Miami-Dade County,FL,State Attorney,2000,General,Katherine Fernandez Rundle,Democrat,Y,,,Won,Re-elected; has held office since 1993 succeeding Janet Reno
+Miami-Dade County,FL,State Attorney,2004,General,Katherine Fernandez Rundle,Democrat,Y,,,Won,
+Miami-Dade County,FL,State Attorney,2008,General,Katherine Fernandez Rundle,Democrat,Y,,,Won,
+Miami-Dade County,FL,State Attorney,2012,General,Katherine Fernandez Rundle,Democrat,Y,,,Won,
+Miami-Dade County,FL,State Attorney,2016,General,Katherine Fernandez Rundle,Democrat,Y,,,Won,
+Miami-Dade County,FL,State Attorney,2020,General,Katherine Fernandez Rundle,Democrat,Y,,,Won,Re-elected 6 times since 1993; still serving as of 2025
+Dallas County,TX,District Attorney,2000,General,Bill Hill,Republican,Y,,,Won,
+Dallas County,TX,District Attorney,2004,General,Bill Hill,Republican,Y,,,Won,
+Dallas County,TX,District Attorney,2006,General,Craig Watkins,Democrat,N,,,Won,Defeated Bill Hill; first Black DA in Texas history
+Dallas County,TX,District Attorney,2010,General,Craig Watkins,Democrat,Y,,,Won,
+Dallas County,TX,District Attorney,2014,General,Susan Hawk,Republican,N,,,Won,Defeated Craig Watkins
+Dallas County,TX,District Attorney,2016,,Faith Johnson,Republican,N,,,Appointed,Hawk resigned; Gov. Abbott appointed Faith Johnson
+Dallas County,TX,District Attorney,2018,General,John Creuzot,Democrat,N,,,Won,Defeated appointed incumbent Faith Johnson
+Dallas County,TX,District Attorney,2022,General,John Creuzot,Democrat,Y,,,Won,
+Kings County (Brooklyn),NY,District Attorney,2001,General,Charles Hynes,Democrat,Y,,,Won,Elected to six 4-year terms total
+Kings County (Brooklyn),NY,District Attorney,2005,General,Charles Hynes,Democrat,Y,,,Won,
+Kings County (Brooklyn),NY,District Attorney,2009,General,Charles Hynes,Democrat,Y,,,Won,
+Kings County (Brooklyn),NY,District Attorney,2013,General,Kenneth Thompson,Democrat,N,,,Won,Defeated 6-term incumbent Charles Hynes
+Kings County (Brooklyn),NY,District Attorney,2013,General,Charles Hynes,Democrat,Y,,,Lost,Lost after 6 terms
+Kings County (Brooklyn),NY,District Attorney,2017,,Eric Gonzalez,Democrat,N,,,Appointed,Acting DA after Thompson died in office Oct 2016; elected 2018
+Kings County (Brooklyn),NY,District Attorney,2018,General,Eric Gonzalez,Democrat,Y,,,Won,
+Kings County (Brooklyn),NY,District Attorney,2022,General,Eric Gonzalez,Democrat,Y,,,Won,
+Riverside County,CA,District Attorney,2002,General,Grover Trask,Republican,Y,,,Won,Served 1994–2006
+Riverside County,CA,District Attorney,2006,General,Rod Pacheco,Republican,N,100.00%,,Won,Ran unopposed; succeeded Grover Trask
+Riverside County,CA,District Attorney,2010,General,Paul Zellerbach,Democrat,N,,,Won,Defeated incumbent Rod Pacheco (R) in June primary
+Riverside County,CA,District Attorney,2014,General,Mike Hestrin,Republican,N,,,Won,Defeated incumbent Zellerbach
+Riverside County,CA,District Attorney,2018,General,Mike Hestrin,Republican,Y,,,Won,
+Riverside County,CA,District Attorney,2022,General,Mike Hestrin,Republican,Y,,,Won,
