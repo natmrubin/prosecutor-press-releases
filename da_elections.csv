@@ -13,17 +13,17 @@ Los Angeles County,CA,District Attorney,2020,General,Jackie Lacey,Democrat,Y,46.
 Los Angeles County,CA,District Attorney,2024,General,Nathan Hochman,Independent,N,59.00%,,Won,Won by ~20-point margin; sworn in by Arnold Schwarzenegger
 Los Angeles County,CA,District Attorney,2024,General,George Gascón,Democrat,Y,41.00%,,Lost,Incumbent
 Cook County,IL,State's Attorney,2000,General,Richard Devine,Democrat,Y,78.30%,,Won,
-Cook County,IL,State's Attorney,2000,General,Gaughan,,N,21.70%,,Lost,
+Cook County,IL,State's Attorney,2000,General,Gaughan,Republican,N,21.70%,,Lost,
 Cook County,IL,State's Attorney,2004,General,Richard Devine,Democrat,Y,79.43%,,Won,
-Cook County,IL,State's Attorney,2004,General,Spiwak,,N,20.57%,,Lost,
+Cook County,IL,State's Attorney,2004,General,Spiwak,Republican,N,20.57%,,Lost,
 Cook County,IL,State's Attorney,2008,General,Anita Alvarez,Democrat,N,69.90%,,Won,
-Cook County,IL,State's Attorney,2008,General,Peraica,,Republican,N,25.08%,,Lost,
+Cook County,IL,State's Attorney,2008,General,Peraica,Republican,N,25.08%,,Lost,
 Cook County,IL,State's Attorney,2012,General,Anita Alvarez,Democrat,Y,77.05%,,Won,
-Cook County,IL,State's Attorney,2012,General,Yokoyama,,Republican,N,22.77%,,Lost,
+Cook County,IL,State's Attorney,2012,General,Yokoyama,Republican,N,22.77%,,Lost,
 Cook County,IL,State's Attorney,2016,General,Kim Foxx,Democrat,N,72.06%,,Won,Defeated incumbent Alvarez in primary first
-Cook County,IL,State's Attorney,2016,General,Pfannkuche,,Republican,N,27.94%,,Lost,
+Cook County,IL,State's Attorney,2016,General,Pfannkuche,Republican,N,27.94%,,Lost,
 Cook County,IL,State's Attorney,2020,General,Kim Foxx,Democrat,Y,54.21%,,Won,
-Cook County,IL,State's Attorney,2020,General,O'Brien,,Republican,N,39.08%,,Lost,
+Cook County,IL,State's Attorney,2020,General,O'Brien,Republican,N,39.08%,,Lost,
 Cook County,IL,State's Attorney,2024,General,Eileen O'Neill Burke,Democrat,N,,,Won,Foxx did not seek re-election
 Harris County,TX,District Attorney,2000,General,Chuck Rosenthal,Republican,N,,,Won,Succeeded retiring Johnny Holmes
 Harris County,TX,District Attorney,2004,General,Chuck Rosenthal,Republican,Y,,,Won,
@@ -50,11 +50,11 @@ San Diego County,CA,District Attorney,2018,General,Summer Stephan,Republican,Y,6
 San Diego County,CA,District Attorney,2018,General,Geneviève Jones-Wright,Democrat,N,36.30%,,Lost,
 San Diego County,CA,District Attorney,2022,General,Summer Stephan,Republican,Y,,,Won,
 Orange County,CA,District Attorney,2002,General,Tony Rackauckas,Republican,Y,62.00%,,Won,Rematch vs. Wally Wade; 62% of vote; nonpartisan office
-Orange County,CA,District Attorney,2002,General,Wally Wade,,N,38.00%,,Lost,
+Orange County,CA,District Attorney,2002,General,Wally Wade,Nonpartisan,N,38.00%,,Lost,
 Orange County,CA,District Attorney,2006,General,Tony Rackauckas,Republican,Y,100.00%,,Won,Ran unopposed
 Orange County,CA,District Attorney,2010,General,Tony Rackauckas,Republican,Y,100.00%,,Won,Ran unopposed
 Orange County,CA,District Attorney,2014,General,Tony Rackauckas,Republican,Y,73.30%,,Won,Defeated Greg Diamond
-Orange County,CA,District Attorney,2014,General,Greg Diamond,,N,26.70%,,Lost,
+Orange County,CA,District Attorney,2014,General,Greg Diamond,Nonpartisan,N,26.70%,,Lost,
 Orange County,CA,District Attorney,2018,General,Todd Spitzer,Republican,N,53.20%,,Won,First new DA in 20 years; nonpartisan office
 Orange County,CA,District Attorney,2018,General,Tony Rackauckas,Republican,Y,46.80%,,Lost,Incumbent
 Orange County,CA,District Attorney,2022,General,Todd Spitzer,Republican,Y,62.50%,,Won,
