@@ -429,6 +429,66 @@ LINK_SCRAPERS = {
 
 
 # ---------------------------------------------------------------------------
+# Dallas re-scrape (repairs PDF-as-bytes corruption)
+# ---------------------------------------------------------------------------
+
+def rescrape_dallas():
+    """Re-fetch Dallas PDFs and extract text properly with pdfplumber.
+
+    The original scrape stored raw PDF bytes in .txt files because pdfplumber
+    wasn't installed, corrupting them via UTF-8 re-encoding. This re-downloads
+    each PDF URL and overwrites the .txt file with clean extracted text.
+    """
+    if not PDFPLUMBER_AVAILABLE:
+        print("  [dallas_tx] pdfplumber required. Run: pip3 install pdfplumber")
+        return
+
+    links_file = Path("links/dallas_tx/links.txt")
+    if not links_file.exists():
+        print("  [dallas_tx] links/dallas_tx/links.txt not found — run link scrape first")
+        return
+
+    urls = [u.strip() for u in links_file.read_text().splitlines() if u.strip()]
+    pdf_urls = [u for u in urls if u.lower().endswith(".pdf") or
+                "pdf" in requests.utils.urlparse(u).path.lower()]
+
+    out_dir = Path("text/dallas_tx")
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    done = saved = failed = 0
+    for url in pdf_urls:
+        out_path = out_dir / (slug(url) + ".txt")
+        if out_path.exists():
+            existing = out_path.read_bytes()
+            if existing[:4] != b"%PDF" and len(existing) > 10:
+                done += 1
+                continue  # already clean text
+
+        try:
+            resp = get(url)
+            pages = []
+            with pdfplumber.open(io.BytesIO(resp.content)) as pdf:
+                for page in pdf.pages:
+                    t = page.extract_text()
+                    if t:
+                        pages.append(t)
+            text = "\n\n".join(pages).strip()
+            if text:
+                out_path.write_text(text + "\n")
+                saved += 1
+                print(f"  [dallas_tx] {out_path.name[:60]}  ({len(text)} chars)")
+            else:
+                out_path.write_text("[PDF — no extractable text]\n")
+                saved += 1
+                print(f"  [dallas_tx] {out_path.name[:60]}  (no text)")
+        except Exception as e:
+            failed += 1
+            print(f"  [dallas_tx] FAILED {url}: {e}")
+
+    print(f"\n  [dallas_tx] done — {saved} saved, {done} already clean, {failed} failed")
+
+
+# ---------------------------------------------------------------------------
 # Text scraping
 # ---------------------------------------------------------------------------
 
@@ -455,8 +515,14 @@ def load_counties():
 
 
 def main():
+    if "--rescrape-dallas" in sys.argv:
+        rescrape_dallas()
+        return
+
     counties = load_counties()
-    targets = sys.argv[1:] if sys.argv[1:] else [c["folder_key"] for c in counties]
+    targets = [a for a in sys.argv[1:] if not a.startswith("--")]
+    if not targets:
+        targets = [c["folder_key"] for c in counties]
 
     for county in counties:
         key = county["folder_key"]

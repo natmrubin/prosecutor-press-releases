@@ -1,11 +1,11 @@
-rank,county,state,office_name,press_release_url,folder_key,num_releases,earliest_release,latest_release
-1,Los Angeles County,CA,Los Angeles County District Attorney's Office,https://da.lacounty.gov/media/news,los_angeles_ca,50,2015-05-05,2026-06-05
-2,Cook County,IL,Cook County State's Attorney,https://www.cookcountystatesattorney.org/news,cook_il,43,2004-12-18,2026-05-29
-3,Harris County,TX,Harris County District Attorney's Office,https://dao.harriscountytx.gov/Newsroom/News-Releases,harris_tx,12,2023-12-06,2025-09-26
-4,Maricopa County,AZ,Maricopa County Attorney's Office,https://maricopacountyattorney.org/403/Newsroom,maricopa_az,1149,2026-05-01,2026-06-01
-5,San Diego County,CA,San Diego County District Attorney,https://www.sdcda.org/office/newsroom/,san_diego_ca,131,2023-06-10,2026-06-03
-6,Orange County,CA,Orange County District Attorney,https://ocdistrictattorney.gov/press/,orange_ca,6454,2000-01-01,2026-06-09
-7,Miami-Dade County,FL,Office of Miami-Dade State Attorney,https://miamisao.com/news/press-release-news/,miami_dade_fl,44,2000-05-25,2026-05-13
-8,Dallas County,TX,Dallas County District Attorney,https://www.dallascounty.org/government/district-attorney/press-releases/,dallas_tx,154,2006-02-06,2024-07-11
-9,Kings County (Brooklyn),NY,Brooklyn District Attorney's Office,https://www.brooklynda.org/press-releases/,kings_ny,1247,2000-01-01,2026-08-12
-10,Riverside County,CA,Riverside County District Attorney,https://rivcoda.org/news-media-archives,riverside_ca,68,2019-04-06,2026-06-08
+rank,county,state,office_name,press_release_url,folder_key,num_releases,earliest_release,latest_release,notes
+1,Los Angeles County,CA,Los Angeles County District Attorney's Office,https://da.lacounty.gov/media/news,los_angeles_ca,407,2012-12-13,2026-06-05,Includes ~70 archive/index pages scraped by mistake (classified as Other); individual releases go back to 2012
+2,Cook County,IL,Cook County State's Attorney,https://www.cookcountystatesattorney.org/news,cook_il,43,2024-12-02,2026-05-29,Low volume; office publishes primarily policy/institutional announcements
+3,Harris County,TX,Harris County District Attorney's Office,https://dao.harriscountytx.gov/Newsroom/News-Releases,harris_tx,114,2023-02-16,2024-10-31,12 from Teare era (2025+); 101 from Kim Ogg era RSS (Feb 2023–Oct 2024); pre-2023 Ogg releases pending Wayback scrape
+4,Maricopa County,AZ,Maricopa County Attorney's Office,https://maricopacountyattorney.org/403/Newsroom,maricopa_az,1160,2011-09-20,2026-06-01,
+5,San Diego County,CA,San Diego County District Attorney,https://www.sdcda.org/office/newsroom/,san_diego_ca,511,1991-08-04,2026-06-10,
+6,Orange County,CA,Orange County District Attorney,https://ocdistrictattorney.gov/press/,orange_ca,6423,2005-04-25,2026-06-09,Largest corpus; capped at 1000 for classification
+7,Miami-Dade County,FL,Office of Miami-Dade State Attorney,https://miamisao.com/news/press-release-news/,miami_dade_fl,43,2024-05-14,2026-05-13,Low volume; miamisao.com has limited web archive depth
+8,Dallas County,TX,Dallas County District Attorney,https://www.dallascounty.org/government/district-attorney/press-releases/,dallas_tx,153,2017-04-11,2026-04-29,All PDFs; originally corrupted during scrape; re-scraped with pdfplumber
+9,Kings County (Brooklyn),NY,Brooklyn District Attorney's Office,https://www.brooklynda.org/press-releases/,kings_ny,1235,2014-11-13,2026-06-08,Capped at 1000 for classification
+10,Riverside County,CA,Riverside County District Attorney,https://rivcoda.org/news-media-archives,riverside_ca,59,2022-10-24,2025-12-02,Playwright-scraped (Cloudflare-protected site)
